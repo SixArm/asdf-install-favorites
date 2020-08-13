@@ -1,0 +1,4 @@
+#!/bin/sh
+asdf plugin install dart https://github.com/patoconnor43/asdf-dart.git
+asdf plugin-add flutter
+asdf plugin install ruby https://github.com/asdf-vm/asdf-ruby.git
