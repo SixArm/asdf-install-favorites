@@ -2,5 +2,6 @@
 asdf plugin install dart https://github.com/patoconnor43/asdf-dart.git
 asdf plugin-add elixir
 asdf plugin-add flutter
+asdf plugin-add golang
 asdf plugin install ruby https://github.com/asdf-vm/asdf-ruby.git
 
