@@ -1,5 +1,50 @@
 #!/bin/sh
 
+##
+# asdf install favorites
+#
+# Install our favorite asdf plugin latest versions.
+#
+#
+# ## Help
+#
+# List the plugins that are added:
+#
+#     asdf plugin list
+#
+# List what's install:
+#
+#     asdf list
+#
+# List the current installed versions:
+#
+#     asdf current
+#
+#
+# ## Set versions
+#
+# Set the specific version you want to use via one of:
+#
+#     asdf global <name> <version> [<version>...]
+#     asdf shell <name> <version> [<version>...]
+#     asdf local <name> <version> [<version>...]
+#
+# Settings:
+#
+#   * `global`: write the version to $HOME/.tool-versions.
+#
+#   * `shell`: set the version to an environment variable named
+#     ASDF_${LANG}_VERSION, for the current shell session only.
+#
+#   * `local`: writes the version to $PWD/.tool-versions, 
+#     creating it if needed.
+#
+# To use the system version:
+#
+#     asdf local <name> system
+#
+##
+
 ## Programming languages
 asdf plugin-add crystal https://github.com/asdf-community/asdf-crystal.git
 asdf plugin-add dart https://github.com/patoconnor43/asdf-dart.git
@@ -28,4 +73,5 @@ asdf plugin-add waypoint https://github.com/asdf-community/asdf-hashicorp.git
 ## Install
 for x in $(asdf plugin list); do
     asdf install "$x" latest
+    asdf global "$x" latest
 done
