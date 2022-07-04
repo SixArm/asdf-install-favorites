@@ -131,6 +131,26 @@ asdf plugin-add rust https://github.com/asdf-community/asdf-rust.git
 #     waiting for server to start.... done
 #     server started
 #
+# ## Helper
+#
+# To switch Postgres versions, you can try this script:
+# https://gist.github.com/jbranchaud/3cda6be6e1dc69c6f55435a387018dac
+#
+# Our similar script:
+#
+# ```zsh
+# function asdf_postgres_switch {
+#     local new_version="$1"
+#     local old_version=$(psql --no-psqlrc -t -c 'show server_version;' postgres | xargs)
+#     if [ "$new_version" != "$old_version" ]; then
+#         DIR="$HOME/.asdf/installs/postgres"
+#         "$DIR/$old_version/bin/pg_ctl" -D "$DIR/$old_version/data" stop
+#         "$DIR/$new_version/bin/pg_ctl" -D "$DIR/$new_version/data" start
+#         asdf global postgres "$new_version"
+#     fi
+# }
+# ```
+#
 brew install gcc readline zlib curl openssl@1.1
 asdf plugin-add postgres
 POSTGRES_EXTRA_CONFIGURE_OPTIONS="--with-openssl --with-uuid=e2fs --with-libraries=/usr/local/lib:/opt/homebrew/opt/openssl@1.1/lib --with-includes=/usr/local/include:/opt/homebrew/opt/openssl@1.1/include" asdf install postgres latest
