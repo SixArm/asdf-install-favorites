@@ -62,6 +62,78 @@ asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin-add R https://github.com/taiar/asdf-R.git
 asdf plugin-add rust https://github.com/asdf-community/asdf-rust.git
 
+# Postgres
+#
+# Updated 2022-07-04 for macOS 12.4 Monterey
+#
+# ## Configure
+#
+# The asdf plugin for Postgres provides configuration options via the
+# env var POSTGRES_EXTRA_CONFIGURE_OPTIONS during the installation.
+# We prefer to configure SSL and UUID.
+#
+# ## OpenSSL
+#
+# OpenSSL provides security libraries. 
+#
+#  * We want to be at least 1.1.
+#
+#  * We install openssl via brew.
+#
+# Install:
+#
+#     $ brew install openssl@1.1
+#     $ brew --prefix openssl@1.1
+#     /opt/homebrew/opt/openssl@1.1
+#
+# Configure via:
+#
+#     --with-openssl
+#     --with-libraries=/opt/homebrew/opt/openssl@1.1/lib
+#     --with-includes=/opt/homebrew/opt/openssl@1.1/include 
+#
+# ## UUID
+#
+# The uuid-ossp module generates universally unique identifiers (UUIDs).
+#
+# See https://www.postgresql.org/docs/current/uuid-ossp.html
+#
+# Historically this module depended on the OSSP UUID library, which accounts
+# for the module's name. However, the library it is not well maintained, 
+# and is becoming increasingly difficult to port to newer platforms.
+#
+# The uuid-ossp module can now be built without the OSSP library on some 
+# platforms. On FreeBSD, NetBSD, and some other BSD-derived platforms, 
+# suitable UUID creation functions are included in the core libc library. 
+# On Linux, macOS, and some other platforms, suitable functions are provided 
+# in the libuuid library, which originally came from the e2fsprogs project.
+#
+# Install (deprecated):
+#
+#     $ brew install ossp-uuid
+#     $ brew --prefix ossp-uuid
+#     /opt/homebrew/opt/ossp-uuid
+#
+# Configure via:
+#
+#     --with-uuid=e2fs
+#
+# ## Success
+#
+# A correct installation should look like this:
+#
+#     Success. You can now start the database server using:
+#
+#     ~/.asdf/installs/postgres/14.4/bin/pg_ctl -D ~/.asdf/installs/postgres/14.4/data -l logfile start
+#
+# Run:
+#
+#     waiting for server to start.... done
+#     server started
+#
+brew install gcc readline zlib curl openssl@1.1
+asdf plugin-add postgres
+POSTGRES_EXTRA_CONFIGURE_OPTIONS="--with-openssl --with-uuid=e2fs --with-libraries=/usr/local/lib:/opt/homebrew/opt/openssl@1.1/lib --with-includes=/usr/local/include:/opt/homebrew/opt/openssl@1.1/include" asdf install postgres latest
 
 ## Tools
 asdf plugin-add awscli https://github.com/MetricMike/asdf-awscli.git
